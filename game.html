@@ -11,9 +11,10 @@ var ctx = canvas.getContext("2d");
 var player = {
   x: 200,
   y: 200,
-  vx: 0,
-  vy: 0
+  vx: 5,
+  vy: 5
 };
+
 var enemies = [];
 
 function draw() {
@@ -21,12 +22,12 @@ function draw() {
 
   // プレイヤーを描画する
   ctx.fillStyle = "red";
-  ctx.fillRect(player.x, player.y, 50, 50);
+  ctx.fillRect(player.x, player.y, 5, 5);
 
   // 敵を描画する
   enemies.forEach(function(enemy) {
     ctx.fillStyle = "blue";
-    ctx.fillRect(enemy.x, enemy.y, 50, 50);
+    ctx.fillRect(enemy.x, enemy.y, 5, 5);
   });
 
   // プレイヤーの移動を更新する
