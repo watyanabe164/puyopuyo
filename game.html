@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Web ブラウザでプレイできるシューティングゲーム</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.12.0/p5.min.js"></script>
+</head>
+<body>
+<canvas id="canvas" width="640" height="480"></canvas>
+<script>
+var ctx = canvas.getContext("2d");
+var player = {
+  x: 200,
+  y: 200,
+  vx: 0,
+  vy: 0
+};
+var enemies = [];
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // プレイヤーを描画する
+  ctx.fillStyle = "red";
+  ctx.fillRect(player.x, player.y, 50, 50);
+
+  // 敵を描画する
+  enemies.forEach(function(enemy) {
+    ctx.fillStyle = "blue";
+    ctx.fillRect(enemy.x, enemy.y, 50, 50);
+  });
+
+  // プレイヤーの移動を更新する
+  player.x += player.vx;
+  player.y += player.vy;
+
+  // プレイヤーが画面端に到達したら反対方向に移動する
+  if (player.x < 0) {
+    player.x = 0;
+  } else if (player.x > canvas.width) {
+    player.x = canvas.width;
+  }
+
+  if (player.y < 0) {
+    player.y = 0;
+  } else if (player.y > canvas.height) {
+    player.y = canvas.height;
+  }
+
+  // 敵を生成
+  var enemy = {
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height
+  };
+  enemies.push(enemy);
+
+  // 敵を削除
+  enemies = enemies.filter(function(enemy) {
+    return enemy.x > 0 && enemy.x < canvas.width && enemy.y > 0 && enemy.y < canvas.height;
+  });
+
+  // プレイヤーと敵の衝突判定を行う
+  enemies.forEach(function(enemy) {
+    if (player.x < enemy.x + 50 && player.x + 50 > enemy.x && player.y < enemy.y + 50 && player.y + 50 > enemy.y) {
+      // 衝突した
+      console.log("ゲームオーバー");
+      // ゲームを終了する
+      window.stop();
+    }
+  });
+}
+
+// キーボード入力を処理する
+addEventListener("keydown", function(event) {
+  switch (event.keyCode) {
+    case 38: // 上矢印キー
+      player.vy = -5;
+      break;
+    case 40: // 下矢印キー
+      player.vy = 5;
+      break;
+    case 37: // 左矢印キー
+      player.vx = -5;
+      break;
+    case 39: // 右矢印キー
+      player.vx = 5;
+      break;
+  }
+});
+
+requestAnimationFrame(draw);
+</script>
+</body>
+</html>
