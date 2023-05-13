@@ -4,7 +4,7 @@ var ctx = canvas.getContext("2d");
 var puyos = [];
 
 function draw() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  //キャンバスをクリアするコードを削除する
 
   for (var i = 0; i < puyos.length; i++) {
     var puyo = puyos[i];
@@ -14,6 +14,7 @@ function draw() {
 
   requestAnimationFrame(draw);
 }
+
 
 function newPuyo() {
   var puyo = {
