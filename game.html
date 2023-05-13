@@ -69,6 +69,8 @@ function draw() {
   });
 }
 
+requestAnimationFrame(draw);
+
 // キーボード入力を処理する
 addEventListener("keydown", function(event) {
   switch (event.keyCode) {
@@ -87,7 +89,6 @@ addEventListener("keydown", function(event) {
   }
 });
 
-requestAnimationFrame(draw);
 </script>
 </body>
 </html>
